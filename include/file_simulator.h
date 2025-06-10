@@ -116,6 +116,7 @@ public:
                          basic_block(_name, _ctime, _rwx, _sibling)
     {
         parent = _parent;
+        ch = nullptr;
     }
 
     ~folder_control_block()
@@ -220,7 +221,6 @@ private:
                 printf("%s\n", ch->get_name());
             ch = ch->sibling;
         }
-        printf("\n");
     }
 
     bool check_name(const char* name)

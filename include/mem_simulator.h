@@ -1,4 +1,4 @@
-/*mem_simulator.cpp
+/*mem_simulator.h
 
 author: L1ttle-Q
 date: 2025-5-10

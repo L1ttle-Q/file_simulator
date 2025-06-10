@@ -278,7 +278,7 @@ int main()
             break;
 
             case Chmod:
-                parsed = sscanf(buf + off, "%s %d", str1, num);
+                parsed = sscanf(buf + off, "%s %d", str1, &num);
                 if (parsed < 1)
                 {
                     printf("Invalid input: missing name.\n");
