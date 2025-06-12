@@ -41,8 +41,9 @@ char getNextChar()
     }
     return *now;
 }
-void match() {now++;}
-bool match(const char& c)
+void move_ahead() {now++;}
+#define match(c) do { if (!_match(c)) return false; } while(0)
+bool _match(const char& c)
 {
     if (now == end)
     {
@@ -159,7 +160,7 @@ bool fdcb(File_simulator* now, int& rwx)
             return false;
         }
         name[idx_name++] = c;
-        match(); c = getNextChar();
+        move_ahead(); c = getNextChar();
     } name[idx_name++] = '\0'; match(';'); c = getNextChar();
     while (c != ';')
     {
@@ -169,7 +170,7 @@ bool fdcb(File_simulator* now, int& rwx)
             return false;
         }
         ctime = (ctime << 3) + (ctime << 1) + c - '0';
-        match(); c = getNextChar();
+        move_ahead(); c = getNextChar();
     } match(';'); c = getNextChar();
     while (c != ';')
     {
@@ -179,7 +180,7 @@ bool fdcb(File_simulator* now, int& rwx)
             return false;
         }
         mtime = (mtime << 3) + (mtime << 1) + c - '0';
-        match(); c = getNextChar();
+        move_ahead(); c = getNextChar();
     } match(';'); c = getNextChar();
     while (c != ']')
     {
@@ -189,7 +190,7 @@ bool fdcb(File_simulator* now, int& rwx)
             return false;
         }
         rwx = (rwx << 3) + (rwx << 1) + c - '0';
-        match(); c = getNextChar();
+        move_ahead(); c = getNextChar();
     } match(']');
     constructor.SetFolderAttr(now, name, ctime, mtime, 0777);
     return true;
@@ -212,7 +213,7 @@ bool fcb(File_simulator* now, char* name, time_t& mtime, time_t& ctime, int& rwx
             return false;
         }
         name[idx_name++] = c;
-        match(); c = getNextChar();
+        move_ahead(); c = getNextChar();
     } name[idx_name++] = '\0'; match(';'); c = getNextChar();
     while (c != ';')
     {
@@ -222,7 +223,7 @@ bool fcb(File_simulator* now, char* name, time_t& mtime, time_t& ctime, int& rwx
             return false;
         }
         ctime = (ctime << 3) + (ctime << 1) + c - '0';
-        match(); c = getNextChar();
+        move_ahead(); c = getNextChar();
     } match(';'); c = getNextChar();
     while (c != ';')
     {
@@ -232,7 +233,7 @@ bool fcb(File_simulator* now, char* name, time_t& mtime, time_t& ctime, int& rwx
             return false;
         }
         mtime = (mtime << 3) + (mtime << 1) + c - '0';
-        match(); c = getNextChar();
+        move_ahead(); c = getNextChar();
     } match(';'); c = getNextChar();
     while (c != ')')
     {
@@ -242,7 +243,7 @@ bool fcb(File_simulator* now, char* name, time_t& mtime, time_t& ctime, int& rwx
             return false;
         }
         rwx = (rwx << 3) + (rwx << 1) + c - '0';
-        match(); c = getNextChar();
+        move_ahead(); c = getNextChar();
     } match(')'); c = getNextChar();
     now->rename(";tmpfile", name);
     return true;
@@ -257,8 +258,8 @@ bool B(File_simulator*);
 bool E(char* content, int& idx)
 {
     char c = getNextChar();
-    if (!Reserved(c)) {match(); content[idx++] = c;}
-    else if (c == '\\') {match(); c = getNextChar(); match(); content[idx++] = c;}
+    if (!Reserved(c)) {move_ahead(); content[idx++] = c;}
+    else if (c == '\\') {move_ahead(); c = getNextChar(); move_ahead(); content[idx++] = c;}
     else
     {
         fprintf(stderr, "error: invalid saved file.(reserved character exists without \'\\\')\n");

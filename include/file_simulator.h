@@ -375,7 +375,7 @@ public:
         file_control_block* dst_file = find_file(name, now);
         if (!dst_file) return false;
 
-        if (!(dst_file->get_rwx() & R))
+        if (!(dst_file->get_rwx() & W))
         {
             fprintf(stderr, "Permission denied.\n");
             return false;
