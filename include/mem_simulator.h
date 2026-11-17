@@ -2,7 +2,7 @@
 
 author: L1ttle-Q
 date: 2025-5-10
-upd: 2025-6-8
+upd: 2026-11-17
 
 memory simulator
 strategy:
@@ -203,13 +203,13 @@ private:
 public:
     Memory_simulator(): segment_cnt(0), next_locate(0), segment_head()
     {
+        memset(Modify, 0, sizeof(Modify));
         Segment_List* new_node = new Segment_List();
         segment_head.next = new_node;
         new_node->prev = &segment_head;
         new_node->content = Segment(segment_cnt++, 0, 0, MEMORY_STORAGY - 1, 0, ++Modify[0]);
         Max_heap.push(new_node->content);
         Min_heap.push(new_node->content);
-        memset(Modify, 0, sizeof(Modify));
     }
 
     int apply(const int& size) // return applied segment first place; fail for -1

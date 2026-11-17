@@ -1,0 +1,29 @@
+mkdir project
+cd project
+
+create note.txt
+write note.txt hello
+append note.txt _world
+read note.txt
+
+cp note.txt copy.txt
+rename copy.txt temp.txt
+treeall
+delete temp.txt
+
+mkdir docs
+cd docs
+create backup.txt
+write backup.txt saved_content
+
+cd ..
+tree
+treeall
+export demo
+exit
+
+/
+└── project/
+    ├── note.txt
+    └── docs/
+        └── backup.txt

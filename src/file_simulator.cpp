@@ -2,7 +2,7 @@
 
 author: L1ttle-Q
 date: 2025-6-6
-update: 2025-6-9
+update: 2026-11-17
 
 */
 
@@ -159,7 +159,7 @@ int main()
                     printf("Invalid input: name cannot contain ;[]()\"\\{}\n");
                     continue;
                 }
-                if (file_simulator->write(str1, str2)) printf("success!\n");
+                if (file_simulator->write(str1, str2, strlen(str2))) printf("success!\n");
             break;
 
             case Read:

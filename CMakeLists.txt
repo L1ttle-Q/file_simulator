@@ -9,3 +9,5 @@ add_executable(file_simulator
     src/file_simulator.cpp
     src/file_save.cpp
 )
+
+target_compile_options(file_simulator PRIVATE -w)

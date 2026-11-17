@@ -2,7 +2,7 @@
 
 author: L1ttle-Q
 date: 2025-6-5
-upd: 2025-6-8
+upd: 2026-11-17
 
 // tree operation ignore access check
 
@@ -370,7 +370,7 @@ public:
         return true;
     }
 
-    bool write(const char* name, const char* data)
+    bool write(const char* name, const char* data, const int& data_size)
     {
         file_control_block* dst_file = find_file(name, now);
         if (!dst_file) return false;
@@ -383,8 +383,6 @@ public:
 
         int last_locate = dst_file->pfile;
         mem->free_by_locate(dst_file->pfile);
-        int data_size = strlen(data);
-        if (!data_size) data_size++;
         if ((dst_file->pfile = mem->apply(data_size)) == -1)
         {
             dst_file->pfile = mem->apply(dst_file->size);
@@ -553,7 +551,7 @@ public:
         create(dst);
         char *tmp_s = new char[src_file->size];
         memcpy(tmp_s, MEMORY + src_file->pfile, src_file->size * sizeof(char));
-        bool res = write(dst, tmp_s);
+        bool res = write(dst, tmp_s, src_file->size);
         delete[] tmp_s;
         return res;
     }
@@ -626,7 +624,6 @@ public:
         if (dst_folder->get_rwx() & X)
         {
             now = dst_folder;
-            printf("dir: %s\n", now->get_name());
             return true;
         }
         fprintf(stderr, "Permission denied.\n");

@@ -2,7 +2,7 @@
 
 author: L1ttle-Q
 date: 2025-6-8
-upd: 2025-6-9
+upd: 2026-11-17
 
 compress and decompress file simulator
 
@@ -343,7 +343,7 @@ bool B(File_simulator* now)
     match('\"');
     if (!C(content, len_content)) return false;
     match('\"');
-    now->write(name, content);
+    now->write(name, content, len_content);
     constructor.SetFileAttr(now, name, ctime, mtime, rwx);
     return true;
 }
